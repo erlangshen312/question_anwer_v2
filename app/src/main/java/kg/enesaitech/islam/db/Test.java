@@ -29,7 +29,7 @@ public class Test {
         this.name = name;
     }
 
-    public int isLocked() {
+    public int getLocked() {
         return locked;
     }
 

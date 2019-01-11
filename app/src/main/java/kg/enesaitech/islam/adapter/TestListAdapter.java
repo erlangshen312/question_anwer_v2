@@ -54,6 +54,16 @@ public class TestListAdapter extends BaseAdapter {
 
         tv.setText(testListAdapter.get(position).getName());
 
+
+        if (testListAdapter.get(position).getLocked() ==  1 ) {
+            tv.setText("Жабык:" + testListAdapter.get(position).getName());
+        } else {
+            tv.setText(testListAdapter.get(position).getName());
+        }
+        Log.i("TESTADAPTER => ***", "ADAPTER + " + tv.getText());
+
+
+
         return view;
 
     }

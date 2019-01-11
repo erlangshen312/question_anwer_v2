@@ -23,7 +23,7 @@
             android:name=".activity.TestListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".AnswerActivity"></activity>
+        <activity android:name=".activity.AnswerActivity"></activity>
     </application>
 
 </manifest>

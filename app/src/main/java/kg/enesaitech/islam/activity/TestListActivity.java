@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import kg.enesaitech.islam.AnswerActivity;
 import kg.enesaitech.islam.R;
 import kg.enesaitech.islam.adapter.TestListAdapter;
 import kg.enesaitech.islam.db.Database;
@@ -50,15 +49,19 @@ public class TestListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int test_id = tests.get(position).getId();
-                String test_name = tests.get(position).getName();
+                if (tests.get(position).getLocked() == 1) {
+                    Toast.makeText(TestListActivity.this, "Sorry this is disabled", Toast.LENGTH_LONG).show();
+                } else {
+                    int test_id = tests.get(position).getId();
+                    String test_name = tests.get(position).getName();
+                    intent = new Intent(TestListActivity.this, AnswerActivity.class);
+                    intent.putExtra("test_id", test_id);
+                    intent.putExtra("test_name", test_name);
+                    Log.i("BUNDLE*******", "You clicked Item: " + test_id + " " + test_name );
+                    Toast.makeText(TestListActivity.this, "Сиз " + test_name + " дегенди тандадыныз", Toast.LENGTH_LONG).show();
+                    startActivity(intent);
+                }
 
-                intent = new Intent(TestListActivity.this, AnswerActivity.class);
-                intent.putExtra("test_id", test_id);
-                intent.putExtra("test_name", test_name);
-                Log.i("BUNDLE*******", "You clicked Item: " + test_id + " " + test_name );
-                Toast.makeText(TestListActivity.this, "Сиз " + test_name + " дегенди тандадыныз", Toast.LENGTH_LONG).show();
-                startActivity(intent);
             }
         });
 

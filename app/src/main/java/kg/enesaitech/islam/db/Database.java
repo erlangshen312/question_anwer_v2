@@ -72,9 +72,9 @@ public class Database extends SQLiteOpenHelper {
                 "(12, 3, 'Ислам')"
         );
         db.execSQL("insert into test(id, name, locked) values" +
-                "(1, 'Test 1', 0), " +
-                "(2, 'Test 2', 1), " +
-                "(3, 'Test 3', 1) "
+                "(1, '1', 0), " +
+                "(2, '2', 1), " +
+                "(3, '3', 1) "
         );
     }
 

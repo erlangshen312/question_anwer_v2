@@ -1,6 +1,8 @@
 package kg.enesaitech.islam.adapter;
 
+import android.graphics.Color;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,22 +51,23 @@ public class TestListAdapter extends BaseAdapter {
         if (view == null) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_number, parent, false);
         }
-
         TextView tv = view.findViewById(R.id.numbers);
-
-        tv.setText(testListAdapter.get(position).getName());
-
+//        tv.setText(testListAdapter.get(position).getName());
 
         if (testListAdapter.get(position).getLocked() ==  1 ) {
-            tv.setText("Жабык:" + testListAdapter.get(position).getName());
+            tv.setBackgroundColor(Color.DKGRAY);
+            tv.setTextColor(Color.WHITE);
+            tv.setPadding(10,10,10,10);
+            tv.setGravity(Gravity.CENTER);
+            tv.setText(testListAdapter.get(position).getName());
         } else {
+            tv.setBackgroundColor(Color.WHITE);
+            tv.setTextColor(Color.BLACK);
+            tv.setPadding(10,10,10,10);
+            tv.setGravity(Gravity.CENTER);
             tv.setText(testListAdapter.get(position).getName());
         }
-        Log.i("TESTADAPTER => ***", "ADAPTER + " + tv.getText());
-
-
-
+//        Log.i("TESTADAPTER => ***", "ADAPTER + " + tv.getText());
         return view;
-
     }
 }

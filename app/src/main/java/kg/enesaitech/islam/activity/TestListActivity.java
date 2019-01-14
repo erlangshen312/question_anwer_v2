@@ -56,7 +56,6 @@ public class TestListActivity extends AppCompatActivity {
                     String test_name = tests.get(position).getName();
                     intent = new Intent(TestListActivity.this, AnswerActivity.class);
                     intent.putExtra("test_id", test_id);
-                    intent.putExtra("test_name", test_name);
                     Log.i("BUNDLE*******", "You clicked Item: " + test_id + " " + test_name );
                     Toast.makeText(TestListActivity.this, "Сиз " + test_name + " дегенди тандадыныз", Toast.LENGTH_LONG).show();
                     startActivity(intent);
@@ -65,6 +64,17 @@ public class TestListActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+        ArrayList<Test> tests = db.getTests();
+        testListAdapter = new TestListAdapter(TestListActivity.this, tests);
+        mGridView.setAdapter(testListAdapter);
+        mGridView.deferNotifyDataSetChanged();
 
     }
 }

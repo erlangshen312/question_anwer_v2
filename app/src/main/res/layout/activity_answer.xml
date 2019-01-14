@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="kg.enesaitech.islam.activity.AnswerActivity">
 
 
@@ -19,39 +20,61 @@
         android:id="@+id/tvAnswer"
         android:layout_width="357dp"
         android:layout_height="111dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/white"
         android:gravity="center_vertical|center"
         android:padding="20dp"
         android:text="TextView"
         android:textColor="@android:color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_answer" />
 
 
-    <ListView
-        android:id="@+id/lwAnswer"
-        android:layout_width="346dp"
-        android:layout_height="323dp"
+    <GridView
+        android:id="@+id/gridViewAnswerActivity"
+        android:layout_width="0dp"
+        android:layout_height="342dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:horizontalSpacing="2dp"
-        android:numColumns="3"
-        android:padding="5dp"
+        android:numColumns="2"
+        android:padding="2dp"
         android:textSize="16sp"
         android:verticalSpacing="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAnswer"
-        app:layout_constraintVertical_bias="0.714"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAnswer" />
+
+    <Button
+        android:id="@+id/prevBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="44dp"
+        android:text="мурунку суроо"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="эмки суроо"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.405"
+        app:layout_constraintStart_toEndOf="@+id/prevBtn" />
 
 
 </android.support.constraint.ConstraintLayout>

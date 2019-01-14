@@ -30,7 +30,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:horizontalSpacing="2dp"
-        android:numColumns="3"
+        android:numColumns="5"
         android:padding="5dp"
         android:textSize="16sp"
         android:verticalSpacing="2dp"

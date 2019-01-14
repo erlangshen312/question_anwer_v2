@@ -10,6 +10,16 @@ public class Test {
     private String name;
     private int locked;
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    private int position;
+
     public Test() {
     }
 

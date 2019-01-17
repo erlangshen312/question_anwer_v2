@@ -51,6 +51,22 @@ public class ResultActivity extends AppCompatActivity {
         }
         if (correct >= questions.size() * 0.9) {
             titleTV.setText("Куттуктайбыз!");
+
+            int nextTestID = 0;
+            ArrayList<Test> tests = db.getTests();
+            boolean foundCurrent = false;
+            for (Test t : tests) {
+                if (foundCurrent) {
+                    nextTestID = t.getId();
+                    break;
+                }
+                if (t.getId() == test_id) {
+                    foundCurrent = true;
+                }
+            }
+            if (nextTestID != 0) {
+                db.unlockNext(nextTestID);
+            }
         } else {
             titleTV.setText("Cиз тестти өткөн жоксуз!");
             buttonNext.setEnabled(false);
@@ -87,7 +103,6 @@ public class ResultActivity extends AppCompatActivity {
                             }
                         }
                         if (nextTestID != 0) {
-                            db.unlockNext(nextTestID);
                             Intent intent = new Intent(ResultActivity.this, AnswerActivity.class);
                             intent.putExtra("test_id", nextTestID);
                             startActivity(intent);

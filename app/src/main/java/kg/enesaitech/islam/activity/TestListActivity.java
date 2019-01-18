@@ -1,10 +1,16 @@
 package kg.enesaitech.islam.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -34,9 +40,10 @@ public class TestListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         toolbarList = (Toolbar) findViewById(R.id.toolbar_list);
-        toolbarList.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        setSupportActionBar(toolbarList);
-        getSupportActionBar().setTitle("Список тестов");
+//        toolbarList.setTitleTextColor(getResources().getColor(R.color.colorBlack));
+//        toolbarList.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+//        setSupportActionBar(toolbarList);
+//        getSupportActionBar().setTitle("Список тестов");
 
         mGridView = findViewById(R.id.gridViewListActivity);
         final ArrayList<Test> tests = db.getTests();
@@ -61,10 +68,10 @@ public class TestListActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
 
+
             }
-        });
-
-
+        }
+        );
     }
 
     @Override
@@ -77,4 +84,32 @@ public class TestListActivity extends AppCompatActivity {
         mGridView.deferNotifyDataSetChanged();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.info:
+                info();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public void info() {
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+//        finish();
+//        Toast.makeText(this, "Вы вышли из системы!", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

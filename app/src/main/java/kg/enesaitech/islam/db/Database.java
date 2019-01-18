@@ -17,6 +17,7 @@ public class Database extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "islam.db";
+
     private static final String SQL_CONFIG =
             "CREATE TABLE config (" +
                     " is_imported int default 0" +
@@ -45,6 +46,7 @@ public class Database extends SQLiteOpenHelper {
                     " position int default 0 " +
                     " )";
 
+
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -56,6 +58,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(SQL_QUESTION);
         db.execSQL(SQL_ANSWER);
         db.execSQL(SQL_TEST);
+//        db.execSQL(db_sql);
 
 //        db.execSQL("insert into question(id, name, correct_answered_id, answered_id, test_id) values" +
 //                "(1, 'Бүткүл ааламды ким жараткан?' , 2, null, 1 ), " +

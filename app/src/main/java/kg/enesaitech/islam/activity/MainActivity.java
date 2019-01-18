@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import kg.enesaitech.islam.R;
 import kg.enesaitech.islam.db.Database;
@@ -28,11 +30,10 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(MainActivity.this, TestListActivity.class);
                 startActivity(intent);
+                finish();
             }
         };
         handler.postDelayed(r, 1000);
-
-
     }
 
     void importData() {
@@ -79,12 +80,10 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             db.updateCorrectAnswer(question_id, correct_test_id);
                         }
-
                     }
                 }
 
                 db.setImported();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             reader = new BufferedReader(
                     new InputStreamReader(getAssets().open("tests.json")));
-
             // do reading, usually loop until end of file reading
             String mLine;
             while ((mLine = reader.readLine()) != null) {

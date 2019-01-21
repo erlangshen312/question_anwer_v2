@@ -47,9 +47,7 @@ public class AnswerActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbarAnswer);
 //        getSupportActionBar().setTitle("Список тестов");
 
-
         mGridView = (GridView) findViewById(R.id.gridViewAnswerActivity);
-
 
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
@@ -60,7 +58,6 @@ public class AnswerActivity extends AppCompatActivity {
         final int test_id = bundle.getInt("test_id");
         Test test = db.getTest(test_id);
         questionPosition = test.getPosition();
-
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +78,6 @@ public class AnswerActivity extends AppCompatActivity {
         });
 
         renderPage(test_id);
-
-
     }
 
     void renderPage(final int test_id) {
@@ -106,9 +101,7 @@ public class AnswerActivity extends AppCompatActivity {
             if (questionPosition == 0) {
                 prevBtn.setEnabled(false);
             }
-
             final Question current_question = testQuestions.get(questionPosition);
-
             nameTV.setText(current_question.getName());
 
             final ArrayList<Answer> answers = db.getAnswers(current_question.getId());
@@ -123,19 +116,14 @@ public class AnswerActivity extends AppCompatActivity {
                     if (current_question.getAnswered_id() == 0) {
                         db.setAnswered(current_question.getId(), answers.get(position).getId());
                         current_question.setAnswered_id(answers.get(position).getId());
-
+//                        questionPosition = questionPosition + 1;
+//                        db.setPosition(test_id, questionPosition);
                         renderPage(test_id);
                     } else {
                         Toast.makeText(AnswerActivity.this, "Вы уже ответили на этот вопрос", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
-
-
         }
-
-
     }
-
 }

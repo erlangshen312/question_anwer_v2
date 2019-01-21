@@ -61,16 +61,9 @@ public class AnswerAdapter extends BaseAdapter {
                 if (current_question.getAnswered_id() != current_question.getCorrect_answered_id()) {
                     tv.setBackgroundColor(Color.RED);
                 }
-
             }
-
-
         }
         tv.setText(answerList.get(position).getName());
-
-
         return view;
     }
-
-
 }

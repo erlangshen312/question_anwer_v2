@@ -31,6 +31,7 @@ public class TestListActivity extends AppCompatActivity {
     GridView mGridView;
     Intent intent;
     TextView nameTV;
+    ArrayList<Test> tests;
 
     Database db = new Database(this);
 
@@ -46,7 +47,7 @@ public class TestListActivity extends AppCompatActivity {
 //        getSupportActionBar().setTitle("Список тестов");
 
         mGridView = findViewById(R.id.gridViewListActivity);
-        final ArrayList<Test> tests = db.getTests();
+        tests = db.getTests();
 
         testListAdapter = new TestListAdapter(TestListActivity.this, tests);
         mGridView.setAdapter(testListAdapter);
@@ -78,7 +79,7 @@ public class TestListActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         // put your code here...
-        ArrayList<Test> tests = db.getTests();
+        tests = db.getTests();
         testListAdapter = new TestListAdapter(TestListActivity.this, tests);
         mGridView.setAdapter(testListAdapter);
         mGridView.deferNotifyDataSetChanged();
@@ -96,6 +97,9 @@ public class TestListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.share:
+                share();
+                return true;
             case R.id.info:
                 info();
                 return true;
@@ -104,11 +108,20 @@ public class TestListActivity extends AppCompatActivity {
         }
     }
 
+    public void share() {
+        String shareBody = "https://play.google.com/store/apps/details?id=kg.enesaitech.expense";
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "APP NAME (Open it in Google Play Store to Download the Application)");
+
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, "Поделиться через"));
+    }
+
     public void info() {
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
-//        finish();
-//        Toast.makeText(this, "Вы вышли из системы!", Toast.LENGTH_SHORT).show();
     }
 
 

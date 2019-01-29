@@ -118,7 +118,7 @@ public class AnswerActivity extends AppCompatActivity {
             timer.start();
         }else{
             timer.cancel();
-//            timer.start();
+            timer.start();
 }
     }
 
@@ -135,6 +135,7 @@ public class AnswerActivity extends AppCompatActivity {
             // go to result page
             questionPosition = 0;
             db.setPosition(test_id, questionPosition);
+            timer.cancel();
             Intent intent = new Intent(this, ResultActivity.class);
             intent.putExtra("test_id", test_id);
             startActivity(intent);

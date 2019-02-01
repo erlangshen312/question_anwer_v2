@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -22,8 +23,10 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
+    private static String DATABASE_PATH = "/data/data/kg.enesaitech.islam/databases/";
     public static final String DATABASE_NAME = "islam.db";
     private Context context;
+
 
     private static final String SQL_CONFIG =
             "CREATE TABLE config (" +
@@ -54,28 +57,36 @@ public class Database extends SQLiteOpenHelper {
                     " )";
 
 
-
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+
+//        if (android.os.Build.VERSION.SDK_INT >= 15)
+//            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+//        else
+//            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+//        Log.d("path", DB_PATH);
+
     }
 
-//   NEW WAY__________________________________________________________________________________
+    //   NEW WAY__________________________________________________________________________________
     public SQLiteDatabase openDatabase() {
         File dbFile = context.getDatabasePath(DATABASE_NAME);
+
+//        File data = Environment.getDataDirectory();
+//        String myDBPath = "/data/kg.enesaitech.islam/databases/islam.db";
+//        File dbFile = new File(data, myDBPath);
         Log.d("**********************", String.valueOf(dbFile.exists()));
-        if (!dbFile.exists()) {
-            System.out.println("");
-            Log.d("**********************", "############# starting copy DATABASE");
-            try {
-//                dbFile.mkdirs();
-                copyDatabase(dbFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("**********************", "ERROR CREATING SOURCE DATABASES");
-                throw new RuntimeException("Error creating source database", e);
-            }
+//        if (!dbFile.exists()) {
+        Log.d("S", "############# starting copy DATABASE");
+        try {
+            copyDatabase(dbFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("**********************", "ERROR CREATING SOURCE DATABASES");
+            throw new RuntimeException("Error creating source database", e);
         }
+//        }
 
         return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
     }
@@ -97,7 +108,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // When app is starting, this data will set to SQLite
-//        db.execSQL(SQL_CONFIG);
+        db.execSQL(SQL_CONFIG);
 //        db.execSQL(SQL_QUESTION);
 //        db.execSQL(SQL_ANSWER);
 //        db.execSQL(SQL_TEST);

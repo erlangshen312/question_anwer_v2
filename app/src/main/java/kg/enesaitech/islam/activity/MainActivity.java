@@ -41,9 +41,12 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(r, 1000);
     }
 
-    void importData(){
+    void importData() {
         Database db = new Database(this);
-        db.openDatabase();
+        if (!db.isImported()) {
+            db.openDatabase();
+            db.setImported();
+        }
     }
 
 //    void importData() {

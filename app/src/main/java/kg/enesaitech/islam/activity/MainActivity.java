@@ -1,9 +1,13 @@
 package kg.enesaitech.islam.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 import org.json.JSONArray;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Handler handler = new Handler();
         importData();
+
         final Runnable r = new Runnable() {
             @Override
             public void run() {

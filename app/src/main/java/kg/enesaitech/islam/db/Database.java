@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -62,15 +63,16 @@ public class Database extends SQLiteOpenHelper {
 //   NEW WAY__________________________________________________________________________________
     public SQLiteDatabase openDatabase() {
         File dbFile = context.getDatabasePath(DATABASE_NAME);
-        System.out.println("*********************************");
-        System.out.println(dbFile.getPath());
+        Log.d("**********************", String.valueOf(dbFile.exists()));
         if (!dbFile.exists()) {
-            System.out.println("############# starting copy DATABASE");
+            System.out.println("");
+            Log.d("**********************", "############# starting copy DATABASE");
             try {
-                dbFile.mkdirs();
+//                dbFile.mkdirs();
                 copyDatabase(dbFile);
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.d("**********************", "ERROR CREATING SOURCE DATABASES");
                 throw new RuntimeException("Error creating source database", e);
             }
         }

@@ -40,6 +40,8 @@ public class AnswerActivity extends AppCompatActivity {
     Test test;
     int test_id;
     public int sleep;
+    boolean GOTONEXT = false;
+
 
     CountDownTimer timer;
 
@@ -105,21 +107,25 @@ public class AnswerActivity extends AppCompatActivity {
     void count() {
 
         if (timer == null) {
-            timer = new CountDownTimer(10000, 1000) {
+            timer = new CountDownTimer(40000, 1000) {
                 public void onTick(long millisUntilFinished) {
                     mTimer.setText("Осталось: " + millisUntilFinished / 1000);
                 }
-
                 public void onFinish() {
-                    mTimer.setText("Убакыт бутту!");
-                    goToNext();
+                    if (GOTONEXT) {
+                        mTimer.setText("Убакыт бутту!");
+                        System.out.println("#################################");
+                        System.out.println("On finish called");
+                        goToNext();
+                    }
                 }
             };
+            GOTONEXT = true;
             timer.start();
-        }else{
+        } else {
             timer.cancel();
             timer.start();
-}
+        }
     }
 
     void renderPage() {
@@ -135,11 +141,12 @@ public class AnswerActivity extends AppCompatActivity {
             // go to result page
             questionPosition = 0;
             db.setPosition(test_id, questionPosition);
+            GOTONEXT = false;
             timer.cancel();
             Intent intent = new Intent(this, ResultActivity.class);
             intent.putExtra("test_id", test_id);
+            AnswerActivity.this.finish();
             startActivity(intent);
-            finish();
 
         } else {
             if (questionPosition == 0) {

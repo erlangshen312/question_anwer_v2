@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import kg.enesaitech.islam.R;
 import kg.enesaitech.islam.db.Database;
+import kg.enesaitech.islam.db.Point;
 import kg.enesaitech.islam.db.Question;
 import kg.enesaitech.islam.db.Test;
 
@@ -37,6 +38,7 @@ public class ResultActivity extends AppCompatActivity {
             return;
         }
         final int test_id = bundle.getInt("test_id");
+
         final ArrayList<Question> questions = db.getQuestions(test_id);
 
         for (Question q : questions) {
@@ -49,6 +51,12 @@ public class ResultActivity extends AppCompatActivity {
                 incorrect++;
             }
         }
+        Point p = new Point();
+        p.setTest_id(test_id);
+        p.setCorrect(correct);
+        p.setWrong(incorrect);
+        p.setEmpty(empty);
+        db.setResults(p);
         if (correct >= questions.size() * 0.9) {
             titleTV.setText("Куттуктайбыз!");
 
@@ -71,18 +79,27 @@ public class ResultActivity extends AppCompatActivity {
             titleTV.setText("Cиз тестти өткөн жоксуз!");
             buttonNext.setEnabled(false);
         }
-        resultTV.setText("Туура жооп: " + correct + " \n Туура эмес жооп: " + incorrect + " \n Жооп берилбегендер: " + empty);
+
+
+        db.resetTest(test_id);
+
+        Point results = db.getResults();
+
+        resultTV.setText("Туура жооп: " + correct + " \n Туура эмес жооп: " + incorrect + " \n Жооп берилбегендер: " + empty
+
+        +" \n \n ОБЩИЙ: \n Туура жооп: " + results.getCorrect() + " \n Туура эмес жооп: " +
+                results.getWrong()+ " \n Жооп берилбегендер: " + results.getEmpty());
+
 
         buttonAgain.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        db.resetTest(test_id);
                         Intent intent = new Intent(ResultActivity.this, AnswerActivity.class);
                         intent.putExtra("test_id", test_id);
-                        startActivity(intent);
                         finish();
+                        startActivity(intent);
                     }
                 }
         );
@@ -105,8 +122,8 @@ public class ResultActivity extends AppCompatActivity {
                         if (nextTestID != 0) {
                             Intent intent = new Intent(ResultActivity.this, AnswerActivity.class);
                             intent.putExtra("test_id", nextTestID);
-                            startActivity(intent);
                             finish();
+                            startActivity(intent);
 
                         } else {
                             finish();

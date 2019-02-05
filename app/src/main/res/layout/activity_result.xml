@@ -39,27 +39,24 @@
         android:id="@+id/btnAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="196dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="84dp"
         android:text="Кайрадан тести өтүү"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnNext"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnNext"
         app:layout_constraintTop_toBottomOf="@+id/resultTV" />
 
     <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="Кийинки тестке өтүү"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAgain"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAgain" />
 </android.support.constraint.ConstraintLayout>

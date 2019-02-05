@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class Database extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    private static String DATABASE_PATH = "/data/data/kg.enesaitech.islam/databases/";
     public static final String DATABASE_NAME = "islam.db";
     private Context context;
 
@@ -56,22 +55,25 @@ public class Database extends SQLiteOpenHelper {
                     " position int default 0 " +
                     " )";
 
+    private static final String SQL_POINTS =
+            "CREATE TABLE points (" +
+                    " id INTEGER PRIMARY KEY autoincrement," +
+                    " test_id int, " +
+                    " correct int, " +
+                    " wrong int, " +
+                    " empty int " +
+                    " )";
+
+
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
-
-//        if (android.os.Build.VERSION.SDK_INT >= 15)
-//            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
-//        else
-//            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-//        Log.d("path", DB_PATH);
-
     }
 
     //   NEW WAY__________________________________________________________________________________
     public SQLiteDatabase openDatabase() {
-        File dbFile = context.getDatabasePath(DATABASE_NAME);
+        File dbFile = context.getDatabasePath(DATABASE_NAME).getAbsoluteFile();
 
 //        File data = Environment.getDataDirectory();
 //        String myDBPath = "/data/kg.enesaitech.islam/databases/islam.db";
@@ -112,6 +114,7 @@ public class Database extends SQLiteOpenHelper {
 //        db.execSQL(SQL_QUESTION);
 //        db.execSQL(SQL_ANSWER);
 //        db.execSQL(SQL_TEST);
+//        db.execSQL(SQL_POINTS);
 //        db.execSQL(db_sql);
 
     }
@@ -207,10 +210,10 @@ public class Database extends SQLiteOpenHelper {
         return test;
     }
 
-    public void resetTest(int test_id) {
-        SQLiteDatabase myDB = this.getWritableDatabase();
-        myDB.execSQL("update question set answered_id = 0 where test_id = " + test_id);
-    }
+//    public void resetTest(int test_id) {
+//        SQLiteDatabase myDB = this.getWritableDatabase();
+//        myDB.execSQL("update question set answered_id = 0 where test_id = " + test_id);
+//    }
 
     public void unlockNext(int test_id) {
         SQLiteDatabase myDB = this.getWritableDatabase();
@@ -265,6 +268,63 @@ public class Database extends SQLiteOpenHelper {
         insertValues.put("name", name);
         Long id = myDB.insert("answer", null, insertValues);
         return id.intValue();
+    }
+
+    public void resetTest(int test_id) {
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        myDB.execSQL("update question set answered_id = 0 where test_id = " + test_id);
+    }
+
+    public void setResults(Point p) {
+        SQLiteDatabase myDB = this.getWritableDatabase();
+
+
+        String selectQuery = "SELECT id FROM points where test_id = " + p.getTest_id();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        int point_id = 0;
+        if (c.moveToFirst()) {
+            do {
+                point_id = c.getInt(c.getColumnIndex("id"));
+            } while (c.moveToNext());
+        }
+
+        if (point_id == 0){
+            ContentValues insertValues = new ContentValues();
+            insertValues.put("test_id", p.getTest_id());
+            insertValues.put("correct", p.getCorrect());
+            insertValues.put("wrong", p.getWrong());
+            insertValues.put("empty", p.getEmpty());
+            Long id = myDB.insert("points", null, insertValues);
+        } else{
+            myDB.execSQL("update points set correct = " + p.getCorrect()
+                    +", wrong = " + p.getWrong()
+                    +", empty = " + p.getEmpty()
+                    + " where id = " + point_id);
+        }
+    }
+
+
+
+    public Point getResults() {
+        SQLiteDatabase myDB = this.getWritableDatabase();
+
+        Point point = new Point();
+        String selectQuery = "SELECT sum(correct) as correct, sum(wrong) as wrong," +
+                " sum(empty) as emp FROM points";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+
+        if (c.moveToFirst()) {
+            do {
+                point.setCorrect(c.getInt(c.getColumnIndex("correct")));
+                point.setWrong(c.getInt(c.getColumnIndex("wrong")));
+                point.setEmpty(c.getInt(c.getColumnIndex("emp")));
+            } while (c.moveToNext());
+        }
+        return point;
     }
 
 

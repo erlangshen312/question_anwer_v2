@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         };
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 2500);
     }
 
     void importData() {

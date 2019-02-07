@@ -71,9 +71,18 @@ public class Database extends SQLiteOpenHelper {
         this.context = context;
     }
 
+
     //   NEW WAY__________________________________________________________________________________
     public SQLiteDatabase openDatabase() {
-        File dbFile = context.getDatabasePath(DATABASE_NAME).getAbsoluteFile();
+
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        String filePath = database.getPath();
+        database.close();
+
+        File dbFile = new File(filePath);
+
+        //        File dbFile = context.getDatabasePath(DATABASE_NAME);
 
 //        File data = Environment.getDataDirectory();
 //        String myDBPath = "/data/kg.enesaitech.islam/databases/islam.db";

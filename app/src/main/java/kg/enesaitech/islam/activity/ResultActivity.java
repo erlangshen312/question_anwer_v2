@@ -87,7 +87,7 @@ public class ResultActivity extends AppCompatActivity {
 
         resultTV.setText("Туура жооп: " + correct + " \n Туура эмес жооп: " + incorrect + " \n Жооп берилбегендер: " + empty
 
-        +" \n \n ОБЩИЙ: \n Туура жооп: " + results.getCorrect() + " \n Туура эмес жооп: " +
+        +" \n \n ЖАЛПЫ: \n Туура жооп: " + results.getCorrect() + " \n Туура эмес жооп: " +
                 results.getWrong()+ " \n Жооп берилбегендер: " + results.getEmpty());
 
 

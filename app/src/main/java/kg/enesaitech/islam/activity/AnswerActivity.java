@@ -1,6 +1,7 @@
 package kg.enesaitech.islam.activity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -103,13 +104,12 @@ public class AnswerActivity extends AppCompatActivity {
         count();
     }
 
-
     void count() {
 
         if (timer == null) {
             timer = new CountDownTimer(40000, 1000) {
                 public void onTick(long millisUntilFinished) {
-                    mTimer.setText("Осталось: " + millisUntilFinished / 1000);
+                    mTimer.setText("Убакыт калды: " + millisUntilFinished / 1000);
                 }
                 public void onFinish() {
                     if (GOTONEXT) {
@@ -126,6 +126,21 @@ public class AnswerActivity extends AppCompatActivity {
             timer.cancel();
             timer.start();
         }
+    }
+
+    @Override
+    public void onResume() {
+        timer.start();
+        super.onResume();
+        Log.i("RESUME #########", "Timer resume");
+    }
+
+    @Override
+    public void onPause() {
+        GOTONEXT = false;
+        timer.cancel();
+        super.onPause();
+        Log.i("PAUSE #########", "Timer pause");
     }
 
     void renderPage() {

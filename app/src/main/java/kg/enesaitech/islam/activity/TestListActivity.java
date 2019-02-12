@@ -109,7 +109,7 @@ public class TestListActivity extends AppCompatActivity {
     }
 
     public void share() {
-        String shareBody = "https://play.google.com/store/apps/details?id=kg.enesaitech.expense";
+        String shareBody = "https://play.google.com/store/apps/details?id=kg.enesaitech.islam";
 
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
